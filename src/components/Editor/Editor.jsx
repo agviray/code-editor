@@ -10,7 +10,7 @@ export default function Editor({
     setContentLog(str.split(''));
   };
 
-  // if (foundFile.length !== 0) setContentLog(foundFile);
+  if (foundFile.length !== 0) setContentLog(foundFile);
 
   return (
     <div className='editor' style={{ visibility: `${isEditorActive ? 'visible' : 'hidden'}` }}>

@@ -59,8 +59,8 @@ export default function NewFileForm({ addFile, user, foundFile }) {
         />
         <div className="textarea-container" ref={textareaContainerRef}>
           <textarea
-            value={foundFile.length !== 0 ? foundFile.contentLog.join('') : contentLog.join('')}
-            onChange={(evt) => evt.preventDefault()}
+            value={Object.keys(foundFile).length !== 0 ? foundFile.contentLog.join('') : contentLog.join('')}
+            onChange={(evt) => { evt.preventDefault(); }}
             // onClick={() => setIsEditorActive(true)}
             placeholder="Content..."
             required

@@ -8,8 +8,9 @@ export default function Editor({
   contentLog, setContentLog, isEditorActive, foundFile,
 }) {
   useEffect(() => {
-    if (foundFile.length !== 0) {
-      setContentLog(foundFile);
+    if (Object.keys(foundFile).length !== 0) {
+      const foundFileContentLog = foundFile.contentLog;
+      setContentLog(foundFileContentLog);
     }
   }, [foundFile]);
 
@@ -20,8 +21,8 @@ export default function Editor({
   return (
     <div className='editor' style={{ visibility: `${isEditorActive ? 'visible' : 'hidden'}` }}>
       <CodeMirror
-        value={foundFile.length !== 0 ? foundFile.contentLog.join('') : contentLog.join('')}
-        onChange={(text) => handleOnChange(text)}
+        value={Object.keys(foundFile).length !== 0 ? foundFile.contentLog.join('') : contentLog.join('')}
+        onChange={(value) => handleOnChange(value)}
         theme={tokyoNight}
         style={{ textAlign: 'left', overflow: 'auto' }}
         options={{

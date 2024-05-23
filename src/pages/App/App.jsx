@@ -14,7 +14,7 @@ import { fetchFiles } from '../../utilities/files-api';
 export default function App() {
   const [user, setUser] = useState(getUser());
   const [files, setFiles] = useState([]);
-  const [foundFile, setFoundFile] = useState([]);
+  const [foundFile, setFoundFile] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,8 +34,7 @@ export default function App() {
 
   function findFile(fileID) {
     const thisFile = files.find((file) => file._id === fileID);
-
-    setFoundFile(thisFile);
+    setFoundFile({ ...thisFile });
     // console.log(foundFile);
   }
 

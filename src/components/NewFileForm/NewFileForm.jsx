@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, /* useEffect, */ useRef } from 'react';
 import './NewFileForm.css';
 import Editor from '../Editor/Editor';
 import useReverseForward from '../../hooks/useReverseForward';
@@ -8,7 +8,9 @@ export default function NewFileForm({ addFile, user, foundFile }) {
   const [filename, setFilename] = useState('');
   const [isEditorActive, setIsEditorActive] = useState(false);
   const textareaContainerRef = useRef(null);
-  const [contentLog, setContentLog, reverse, forward] = useReverseForward([], 25);
+  const [contentLog, setContentLog, reverse,
+    // eslint-disable-next-line max-len
+    forward, codeHistory, setCodeHistory] = useReverseForward([], 25);
   // eslint-disable-next-line no-unused-vars
   const [intervalId, setIntervalId] = useState(null);
   const intervalRef = useRef(null);
@@ -29,7 +31,9 @@ export default function NewFileForm({ addFile, user, foundFile }) {
 
   async function handleAddFile(evt) {
     evt.preventDefault();
-    const fileData = { filename, user, contentLog };
+    const fileData = {
+      filename, user, contentLog, codeHistory,
+    };
     const file = await createFile(fileData);
     addFile(file);
     setFilename(filename);
@@ -59,7 +63,7 @@ export default function NewFileForm({ addFile, user, foundFile }) {
         />
         <div className="textarea-container" ref={textareaContainerRef}>
           <textarea
-            value={Object.keys(foundFile).length !== 0 ? foundFile.contentLog.join('') : contentLog.join('')}
+            value={contentLog.join('')}
             onChange={(evt) => { evt.preventDefault(); }}
             // onClick={() => setIsEditorActive(true)}
             placeholder="Content..."
@@ -70,6 +74,8 @@ export default function NewFileForm({ addFile, user, foundFile }) {
             foundFile={foundFile}
             contentLog={contentLog}
             setContentLog={setContentLog}
+            codeHistory={codeHistory}
+            setCodeHistory={setCodeHistory}
             isEditorActive={isEditorActive}
           />
         </div>

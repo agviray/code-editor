@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { tokyoNight } from '@uiw/codemirror-theme-tokyo-night';
@@ -6,11 +7,15 @@ import './Editor.css';
 export default function Editor({
   contentLog, setContentLog, isEditorActive, foundFile,
 }) {
+  useEffect(() => {
+    if (foundFile.length !== 0) {
+      setContentLog(foundFile);
+    }
+  }, [foundFile]);
+
   const handleOnChange = (str) => {
     setContentLog(str.split(''));
   };
-
-  if (foundFile.length !== 0) setContentLog(foundFile);
 
   return (
     <div className='editor' style={{ visibility: `${isEditorActive ? 'visible' : 'hidden'}` }}>
